@@ -58,3 +58,89 @@ int main()
 	
 	return 0;
 }
+
+
+
+#include<iostream>
+using namespace std;
+
+class FRACTION_TYPE
+{
+	private:
+		int iNum,iDen;
+	public:
+		void fnSetFraction(int,int);
+		void fnShowFraction();
+		void fnAddFraction(FRACTION_TYPE);
+		void fnReduceFraction();
+};
+int gcd(int ,int );
+
+void FRACTION_TYPE::fnSetFraction(int iN,int iD)
+{
+	iNum=iN;
+	iDen=iD;
+}
+
+void FRACTION_TYPE::fnShowFraction()
+{
+	cout<<iNum<<"/"<<iDen<<endl;
+}
+
+
+void FRACTION_TYPE::fnAddFraction(FRACTION_TYPE f2)
+{
+	FRACTION_TYPE f3;
+	
+	f3.iNum=(iNum*f2.iDen) + (iDen*f2.iNum);
+	f3.iDen=iDen*f2.iDen;
+	
+	f3.fnShowFraction();
+	
+	cout<<"\n simplified form=";
+	f3.fnReduceFraction();
+}
+
+void FRACTION_TYPE::fnReduceFraction()
+{
+	int d;
+	d=gcd(iNum,iDen);
+	iNum=iNum/d;
+	iDen=iDen/d;	
+	
+	fnShowFraction();
+}
+
+int gcd(int m,int n)
+{
+	if(n==0)
+		return m;
+	else
+		return (gcd(n,m%n));
+}
+
+int main()
+{
+	FRACTION_TYPE f1,f2;
+	
+	int iN,iD;
+	
+	cout<<"\nenter numenator and denaminator of the Fraction1"<<endl;
+	cin>>iN>>iD;
+	f1.fnSetFraction(iN,iD);
+	
+	cout<<"\nenter numenator and denaminator of the Fraction2"<<endl;
+	cin>>iN>>iD;
+	f2.fnSetFraction(iN,iD);
+	
+	cout<<"Fraction 1 is =";
+	f1.fnShowFraction();
+	
+	cout<<"Fraction 2 is =";
+	f2.fnShowFraction();
+	
+	cout<<"sum of two  Fraction is=";	
+	f1.fnAddFraction(f2);	
+	
+	return 0;
+}
